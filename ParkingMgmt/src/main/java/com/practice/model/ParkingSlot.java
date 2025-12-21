@@ -4,16 +4,20 @@ import com.practice.enums.VehicleCategory;
 
 public class ParkingSlot {
 
-    private final String slotId;
+    private final int slotId;
     private final VehicleCategory category;
     private boolean available = true;
 
-    public ParkingSlot(String slotId, VehicleCategory category) {
+    public ParkingSlot(int slotId, VehicleCategory category) {
         this.slotId = slotId;
         this.category = category;
     }
 
-    public String getSlotId() {
+    public boolean canFit(VehicleCategory category){
+        return this.category == category;
+    }
+
+    public int getSlotId() {
         return slotId;
     }
 
@@ -25,7 +29,11 @@ public class ParkingSlot {
         return available;
     }
 
-    public void setAvailable(boolean available) {
-        this.available = available;
+    public void markOccupy() {
+        this.available = false;
+    }
+
+    public void markFree() {
+        this.available = true;
     }
 }

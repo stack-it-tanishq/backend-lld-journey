@@ -7,7 +7,7 @@ public class Vehicle {
     private final String number;
     private final VehicleCategory category;
 
-    Vehicle(String number, VehicleCategory category){
+    public Vehicle(String number, VehicleCategory category){
         this.number = number;
         this.category = category;
     }

@@ -4,8 +4,11 @@ import com.practice.enums.PaymentStatus;
 import com.practice.strategy.pricing.PricingStrategy;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Ticket {
+
+    private final UUID ticketId;
 
     private final Vehicle vehicle;
 
@@ -15,15 +18,17 @@ public class Ticket {
 
     private LocalDateTime exitTime;
 
-    private final PricingStrategy pricingStrategy;
-
     private PaymentStatus paymentStatus = PaymentStatus.UNPAID;
 
-    public Ticket(Vehicle vehicle, ParkingSlot slot, LocalDateTime entryTime, PricingStrategy pricingStrategy) {
+    public UUID getTicketId() {
+        return ticketId;
+    }
+
+    public Ticket(UUID ticketId, Vehicle vehicle, ParkingSlot slot, LocalDateTime entryTime) {
+        this.ticketId = ticketId;
         this.vehicle = vehicle;
         this.slot = slot;
         this.entryTime = entryTime;
-        this.pricingStrategy = pricingStrategy;
     }
 
     public void setPaymentStatus(PaymentStatus paymentStatus) {
@@ -46,12 +51,8 @@ public class Ticket {
         return exitTime;
     }
 
-    public PricingStrategy getPricingStrategy() {
-        return pricingStrategy;
-    }
-
-    public void setExitTime(LocalDateTime exitTime) {
-        this.exitTime = exitTime;
+    public void close() { //close
+        this.exitTime = LocalDateTime.now();
     }
 
     public PaymentStatus getPaymentStatus() {
