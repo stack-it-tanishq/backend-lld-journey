@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 
 public class Elevator {
 
-  private PriorityQueue<Integer> floorsQueue;
+  private final PriorityQueue<Integer> floorsQueue;
   private int currentFloor;
   private Direction direction;
 
@@ -17,7 +17,7 @@ public class Elevator {
         );
     }
 
-    public void addRequest(int floorNo){
+    public void addRequest(int floorNo, Direction direction){
         floorsQueue.offer(floorNo);
     }
 
@@ -38,6 +38,10 @@ public class Elevator {
             direction = Direction.IDLE;
         }
 
+    }
+
+    public void selectDestination(int destinationFloor){
+        floorsQueue.offer(destinationFloor);
     }
 
     public PriorityQueue<Integer> getFloorsQueue() {

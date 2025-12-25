@@ -17,12 +17,13 @@ public class Building {
         }
     }
 
-    public void callElevator(int floorNo){
+    public void callElevator(int floorNo, Direction direction){
         Floor callingFloor = floors.get(floorNo);
         if(callingFloor == null){
             throw new NullPointerException();
         }
-        callingFloor.callElevator(selectElevator());
+        Elevator nearestReachingElevator = selectElevator(floorNo, direction);
+        nearestReachingElevator.addRequest(floorNo, direction);
     }
 
     public void step() {
@@ -31,12 +32,16 @@ public class Building {
         }
     }
 
-    private Elevator selectElevator(){
+    private Elevator selectElevator(int floorNo, Direction direction){
         if(elevators.isEmpty()){
             throw new IllegalArgumentException() ;
         }
         for (Elevator elevator : elevators) {
-            if (elevator.getDirection() == Direction.IDLE) {
+            if (elevator.getDirection() == Direction.DOWN && elevator.getCurrentFloor() > floorNo) {
+                return elevator;
+            } else if(elevator.getDirection() == Direction.UP && elevator.getCurrentFloor() < floorNo){
+                return elevator;
+            } else if(elevator.getDirection() == Direction.IDLE){
                 return elevator;
             }
         }

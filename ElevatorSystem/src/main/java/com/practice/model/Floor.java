@@ -8,7 +8,7 @@ public class Floor {
         this.number = number;
     }
 
-    public void callElevator(Elevator elevator){
-        elevator.addRequest(number);
+    public void callElevator(Building building, Direction direction){
+        building.callElevator(number, direction);
     }
 }
